@@ -77,10 +77,10 @@ WSGI_APPLICATION = 'empresas.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mysql_cymysql',
-        'NAME': 'empresas',
-        'USER': 'root',
-        'PASSWORD': 'cris21',
-        'HOST': 'localhost',
+        'NAME': 'crisxztian$default',
+        'USER': 'crisxztian',
+        'PASSWORD': 'aguadedios2017',
+        'HOST': 'crisxztian.mysql.pythonanywhere-services.com',
         'PORT': '3306',
     }
 }
