@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.shortcuts import render, render_to_response, HttpResponseRedirect, get_object_or_404
 from aguadedios.models import empresas,administradores,barrios
 from aguadedios.Forms import empresasForm, loginForm, administradoresForm, empresasUpdateForm, barriosForm
