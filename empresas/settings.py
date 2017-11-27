@@ -25,7 +25,7 @@ SECRET_KEY = '$&k(pv@hlqx$k2-gm%x*xolav=d2g97q_k%73i1awk1^jux29d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.18.125.153', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['crisxztian.pythonanywhere.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -55,7 +55,7 @@ ROOT_URLCONF = 'empresas.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['/home/crisxztian/aguadedios/aguadedios/Templates',],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
