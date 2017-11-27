@@ -1,0 +1,99 @@
+{% extends "master.html" %}
+{% block title %}
+Listado de Empresas
+{% endblock %}
+{% block header %}
+  {% if user %}
+    <nav class="navbar navbar-inverse">
+      <div id="navbar" class="navbar-collapse collapse" >
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{% url 'list_empresas' %}">Aguadedios</a></li>
+          <li><form action="{% url 'buscar' %}" method="post" style="display:inline">{% csrf_token %}
+              <input type="text" name= "busqueda" placeholder="Buscar" style="width:250px;height:40px;margin-top:5px;margin-bottom:5px;margin-right:5px" ><button type="submit" class="btn btn-default" style="width:50px;height:40px;margin-top:5px;margin-bottom:5px"> <span class="glyphicon glyphicon-search"></span></button>
+            </form>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user}}
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url 'add_empresa' %}">Nueva empresa</a></li>
+                <li><a href="{% url 'add_barrio' %}">Nuevo barrio</a></li>
+                <li><a href="{% url 'add_admin' %}">Nuevo administrador</a></li>
+                <li class="divider"></li>
+                <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    {% else %}
+      <nav class="navbar navbar-inverse">
+        <div id="navbar" class="navbar-collapse collapse" >
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="{% url 'list_empresas' %}">Agua de Dios</a></li>
+            <li><form action="{% url 'buscar' %}" method="post" style="display:inline">{% csrf_token %}
+                <input type="text" name= "busqueda" placeholder="Buscar" style="width:250px;height:40px;margin-top:5px;margin-bottom:5px;margin-right:5px" ><button type="submit" class="btn btn-default" style="width:50px;height:40px;margin-top:5px;margin-bottom:5px"> <span class="glyphicon glyphicon-search"></span></button>
+              </form>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active">
+              <a href="{% url 'login' %}">Login</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    {% endif %}
+{% endblock %}
+{% block content %}
+<div class="row">
+    {% if messages %}
+        <div class="alert alert-info">
+            {% for message in messages %}
+              <B>{{ message }}</B>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <div class="panel panel-default">
+        <div class="panel-body">
+          <h2>Empresas {% if pri %} en el barrio {{pri}} {% endif %} </h2>
+          <select name='filtros' id='filtros' style="margin-top:20px;margin-bottom:20px">
+            <option>Seleccionar barrio</option>
+            <option value=0>Sin filtro</option>
+            {% for bar in barri %}
+                <option value="{{bar.id}}">{{bar.nombre}}</option>
+            {% endfor %}
+          </select>
+          <table class="table">
+            <tr class="info">
+                <th>Nombre comercial</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>E-mail</th>
+                <th>Imagen</th>
+              </tr>
+          {% for emp in empresas %}
+            <tr>
+              <td>{{emp.nombre}}</td>
+              <td>{{emp.direccion}}</td>
+              <td>{{emp.telefono}}</td>
+              <td>{{emp.email}}</td>
+              <td><IMG SRC="/static/media/{{emp.fotos}}" ALT="Foto del sitio" width=300 height=200></td>
+              {% if user %}
+              <td><a href="{% url 'update_empresa' emp.id %}"><input type="button" class="btn btn-block btn-info" value="Actualizar"></a></td>
+              {% endif %}
+          {% endfor %}
+          </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+ <div class="navbar navbar-inverse navbar-fixed-bottom">
+ <div class="text-center" style="padding-top: 12px">
+ <small style="color: #fff">Footer Posts List</small>
+     </div>
+ </div>
+{% endblock %}

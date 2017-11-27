@@ -1,0 +1,76 @@
+{% extends "master.html" %}
+{% block title %}
+Nueva empresa
+{% endblock %}
+{% block header %}
+{% if user %}
+  <nav class="navbar navbar-inverse">
+    <div id="navbar" class="navbar-collapse collapse" >
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="{% url 'list_empresas' %}">Aguadedios</a></li>
+        <li><form action="{% url 'buscar' %}" method="post" style="display:inline">{% csrf_token %}
+            <input type="text" name= "busqueda" placeholder="Buscar" style="width:250px;height:40px;margin-top:5px;margin-bottom:5px;margin-right:5px" ><button type="submit" class="btn btn-default" style="width:50px;height:40px;margin-top:5px;margin-bottom:5px"> <span class="glyphicon glyphicon-search"></span></button>
+          </form>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user}}
+            <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url 'add_empresa' %}">Nueva empresa</a></li>
+              <li><a href="{% url 'add_barrio' %}">Nuevo barrio</a></li>
+              <li><a href="{% url 'add_admin' %}">Nuevo administrador</a></li>
+              <li class="divider"></li>
+              <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  {% else %}
+    <nav class="navbar navbar-inverse">
+      <div id="navbar" class="navbar-collapse collapse" >
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="{% url 'list_empresas' %}">Agua de Dios</a></li>
+          <li><form action="{% url 'buscar' %}" method="post" style="display:inline">{% csrf_token %}
+              <input type="text" name= "busqueda" placeholder="Buscar" style="width:250px;height:40px;margin-top:5px;margin-bottom:5px;margin-right:5px" ><button type="submit" class="btn btn-default" style="width:50px;height:40px;margin-top:5px;margin-bottom:5px"> <span class="glyphicon glyphicon-search"></span></button>
+            </form>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="active">
+            <a href="{% url 'login' %}">Login</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  {% endif %}
+{% endblock %}
+{% block content %}
+<div class="row">
+  {% if messages %}
+      <div class="alert alert-success">
+          {% for message in messages %}
+              {{ message }}
+          {% endfor %}
+      </div>
+  {% endif %}
+  <h1>{% if estado %}Actualizar{% else %}Agregar{% endif %} empresa</h1>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <form  action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+                {{ form.as_p }}
+            <input type="submit" class="btn btn-block btn-success" value="Guardar">
+        </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+ <div class="navbar navbar-inverse navbar-fixed-bottom">
+ <center style="padding-top: 12px">
+ <small style="color: #fff">Footer Form</small>
+     </center>
+ </div>
+{% endblock %}
